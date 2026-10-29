@@ -32,11 +32,11 @@
 需要 Xcode Command Line Tools / Swift 及 Go 1.24+：
 
 ```sh
-./scripts/build.sh
+bash scripts/build.sh
 (cd engine && go test -race ./... && go vet ./...)
 node --check engine/web/app.js
 python3 scripts/check-lifecycle.py
-./scripts/package.sh
+bash scripts/package.sh
 ```
 
 如果运行环境禁止监听端口，真实 HTTP 测试必须在允许本机 loopback 监听的环境运行，不能将跳过该测试记为通过。
