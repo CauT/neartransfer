@@ -1,30 +1,29 @@
-# 近传 0.1.0 开发预览版
+# NearTransfer 0.1.0 — Development Preview
 
-Mac App 启动本机 H5 收发界面，同一局域网的设备扫码后直接使用浏览器互传文字、图片和文件，无需 Android App 或云服务。
+Share text, photos, and files across your local network. Open the Mac app, scan its QR code on another device, and share in both directions through a browser. No account or cloud service required.
 
-- 文字发送、复制，图片预览，多文件上传和共享收件箱自动刷新。
-- 单项上限 1 GiB，原文件字节保存；同名上传互不覆盖。
-- 每次启动更新配对凭据；历史内容保留；退出 App 关闭传输服务。
+## Download and install
 
-## 下载与启动
+**Apple Silicon (arm64), macOS 13 or later.**
 
-下载 arm64 ZIP，解压后打开 `NearTransfer.app`。适用于 Apple Silicon Mac、macOS 13 及以上。保持 Mac App 运行，另一台设备连接同一局域网后扫描 H5 页面二维码。
+- **DMG:** open `NearTransfer-0.1.0-dev-arm64.dmg` and drag **NearTransfer.app** into **Applications**.
+- **ZIP:** extract the archive and open **NearTransfer.app**.
+- The DMG contains the same app as the existing ZIP. SHA-256 files are included with the downloads.
 
-此为 ad-hoc 签名开发包，没有 Developer ID 签名或 Apple 公证，也没有完成下载后的 Gatekeeper 安装验收。
+Keep the Mac app running and connect both devices to the same Wi-Fi/LAN. The app opens a local sharing page in your default browser.
 
-## 已验证
+## Included
 
-- Mac 正常启动、H5 页面、文字互传、图片预览。
-- 图片和二进制文件接收后的 SHA-256 一致性。
-- 发布包正常启动后，Safari 通过局域网地址将 PNG 和 1 MiB 文件保存到 Downloads，最终字节 SHA-256 与原件一致。
-- 打包引擎双向 HTTP 下载、鉴权、存储锁、重启持久化和退出清理。
-- Go 竞态测试、静态检查，以及 ZIP 解压后的字节、权限和严格签名验证。
+- Text sharing and copying, image previews, multiple file uploads, and an automatically refreshed inbox.
+- Original file bytes and names, up to 1 GiB per item; duplicate names do not overwrite existing uploads.
+- Fresh pairing credentials on every launch, persistent local inbox, and service shutdown when the app quits.
 
-## 已知限制
+![NearTransfer desktop interface](https://raw.githubusercontent.com/CauT/neartransfer/main/docs/screenshots/desktop.jpg)
 
-- 采用 HTTP 明文，只适合可信局域网；配对链接允许访问本次会话的整个收件箱。
-- 当前自动化测试浏览器对下载显示 `ERR_BLOCKED_BY_CLIENT`，Chrome 最终保存流程尚未验收通过；Safari 正常保存已通过。
-- 未完成真实手机或第二台物理设备的扫码和文件保存验收；不能将本机双浏览器测试等同于跨设备验证。
-- 不保证后台上传、断点续传、IPv6 或企业 Wi-Fi 客户端隔离环境可用。
+## Preview notes
 
-完整测试范围见 `docs/acceptance.md`。此版本作为预发布提供，不宣称生产就绪。
+This is an ad-hoc signed development preview without Developer ID signing or Apple notarization. Transfers use unencrypted HTTP and should be used on a trusted LAN. Pairing links grant access to the current inbox.
+
+Safari image and binary downloads have been checked against the original SHA-256 hashes. Automated Chrome downloads reported `ERR_BLOCKED_BY_CLIENT`. Physical phone pairing and saving remain unverified; this release is published without waiting for additional device acceptance testing.
+
+See the [README](https://github.com/CauT/neartransfer#readme) and [acceptance record](https://github.com/CauT/neartransfer/blob/main/docs/acceptance.md) for details.
